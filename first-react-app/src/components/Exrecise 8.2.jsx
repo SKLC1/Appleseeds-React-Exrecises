@@ -29,11 +29,8 @@ class Box extends React.Component{
     },2000)
   }
   componentDidUpdate(pProp,pState) {
-    console.log(this.state.isBox);
-    console.log(pState.isBox);
     if(this.state.isBox == pState.isBox) {
     setTimeout((lastState)=>{
-        console.log('activated delete')
         this.setState(()=>{
           return { isBox: 'none' }
         })

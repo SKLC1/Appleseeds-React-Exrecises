@@ -16,6 +16,12 @@ code {
   width: 10rem;
   height: 10rem;
   border: solid;
-  /* transform: translateX(-100%); */
+  background-color: red;
+  transform: translateX(-100%); 
   transition: 1s;
+}
+.box8{
+  width: 10rem;
+  height: 10rem;
+  border: solid;
 }
