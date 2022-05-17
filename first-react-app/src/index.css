@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* exrecise 8.2 */
+.box{
+  width: 10rem;
+  height: 10rem;
+  border: solid;
+  /* transform: translateX(-100%); */
+  transition: 1s;
+}

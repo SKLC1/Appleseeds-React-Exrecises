@@ -4,21 +4,30 @@ import React from 'react';
 import { useState } from 'react';
 
 
-function App() {
-  const [counter, refactor] = useState(0)
-  const curColor = 'black'
+function App(){
   return(
     <div>
-      <button onClick={()=>refactor(counter+1)}>+</button>
-      <div style={counter>0?({color:'green'}):({color:'red'})}>{counter}</div> 
-      <button onClick={()=>refactor(counter-1)}>-</button> 
+      <Box/>
     </div>
-        )
-    }
-function red() {
-  return(
-   <div>Hide And Seek Component</div>
   )
 }
-    
-export default App 
+class Box extends React.Component{
+  constructor() {
+    super()
+    this.state = {
+      // back: `rgb(${Math.floor(Math.random *120)},${Math.floor(Math.random *120)},${Math.floor(Math.random *120)})`,
+      back: 'red',
+    }
+  }
+
+  render() {
+    return(
+      <div>
+        <div className='box' style={{backgroundColor: this.state.back}}>
+        </div>
+      </div>
+    )
+  }
+}
+
+export default App
