@@ -10,17 +10,17 @@ class App extends React.Component{
       colors: ["yellow","red","blue"],
     }
   }
+  changeColor(color){
+      console.log(color);
+      console.log(this);
+      this.setState((prevState)=>{return {res: color}})
+  }
   assignColors() {
     const colorRes = this.state.colors.map(colorProp => {
       console.log(colorProp);
-      return <ColorBtn color={colorProp} changeColor={this.changeColor}/>
+      return <ColorBtn color={colorProp} changeFunc={this.changeColor}/>
     });
     return colorRes
-  }
-  changeColor(color){
-    console.log(color);
-    console.log(this);
-    this.setState((prevState)=>{return {res: color}})
   }
   render() {
     return (
@@ -36,7 +36,7 @@ class ColorBtn extends React.Component{
   render() {
     return(
       <div>
-       <button onClick={()=>this.props.changeColor(this.props.color)}
+       <button onClick={()=>this.props.changeFunc(this.props.color)}
         style={{backgroundColor: this.props.color}}>
          {this.props.color}
        </button>
