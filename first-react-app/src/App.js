@@ -10,14 +10,11 @@ class App extends React.Component{
       colors: ["yellow","red","blue"],
     }
   }
-  changeColor(color){
-      console.log(color);
-      console.log(this);
-      this.setState((prevState)=>{return {res: color}})
+  changeColor=(color)=>{
+    this.setState(()=>{return {res: color}})
   }
   assignColors() {
     const colorRes = this.state.colors.map(colorProp => {
-      console.log(colorProp);
       return <ColorBtn color={colorProp} changeFunc={this.changeColor}/>
     });
     return colorRes
