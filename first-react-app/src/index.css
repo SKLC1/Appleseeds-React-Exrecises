@@ -44,3 +44,10 @@ code {
 @-webkit-keyframes spin {
   to { -webkit-transform: rotate(360deg); }
 }
+
+/* exerecise 11.3 */
+.form-box{
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
