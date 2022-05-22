@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
-// import { useState } from 'react';
+import axios  from 'axios';
+import { data } from './components/Exrecise 12.2 react data/data.js';
 
 class App extends React.Component{
   constructor() {
@@ -10,69 +11,80 @@ class App extends React.Component{
   render() {
     return(
       <>
-      <Create/>
+       <GetJoke/>
       </>
     )
   }
 }
 
-class Create extends React.Component{
+class GetJoke extends React.Component{
   constructor() {
     super()
     this.state = {
-      firstName: null,
-      lastName: null,
-      age: null,
-      text: null,
-      review: false,
+      myData: data,
+      allNames: [],
+      allBefore1990: [],
     }
   }
-  setFirst=(value)=>{
-    this.setState({ firstName: value })
+  getAllNames=()=> {
+    let newNames = this.state.myData.map(person=>{
+      if(this.state.allNames.length < this.state.myData.length){
+        for (const key in person) {
+          if(key === 'name') {
+            return person[key]
+          }
+        }
+      }
+    })
+    console.log(newNames)
+    return this.setState({allNames: newNames})
   }
-  setLast=(value)=>{
-    this.setState({ lastName: value })
+  getAllBornBefore1990=()=> {
+    let newAllBornBeforeArr = this.state.myData.map(person=>{
+      if(!this.state.allBefore1990.includes(person)){
+        for (const key in person) {
+          if(key === 'birthday' && person[key].slice(person[key].length - 4) < 1990) {
+            return person
+          }
+        }
+      }
+    })
+    console.log(this.state.allBefore1990)
+    return this.setState({allBefore1990: newAllBornBeforeArr})
   }
-  setSelect=(value)=>{
-    this.setState({ age: value })
+  componentDidMount(){    
+    this.getAllNames()
+    this.getAllBornBefore1990()
   }
-  setText=(value)=>{
-    this.setState({ text: value })
-  }
-  reviewForm=()=>{
-    this.setState({ review: true })
-  }
-
   render() {
-    if(!this.state.review) {
-    return(
-      <div className='form-box'>
-       <form>
-        <label>First Name</label>
-        <input type="text" onChange={(e)=> this.setFirst(e.target.value)}/>
-        <label>Last Name</label>
-        <input type="text" onChange={(e)=> this.setLast(e.target.value)}/>
-        <select onChange={(e)=> this.setSelect(e.target.value)}>
-          <option value="0-15">0-15</option>
-          <option value="15-30">15-30</option>
-        </select>
-        <label>Free text</label>
-        <input onChange={(e)=> this.setText(e.target.value)} type="text"/>
-        <button type='button' onClick={()=> this.reviewForm()}>Continue</button>
-       </form>
-      </div>
-    )
-  } else {
     return(
       <div>
-        <p>{this.state.firstName}</p>
-        <p>{this.state.lastName}</p>
-        <p>{this.state.age}</p>
-        <p>{this.state.text}</p>
-        <button type='submit'>Submit</button>
-      </div>
-      )
-    }
+         <Name arr={this.state.allNames}/>
+         <Card data={this.state.allBefore1990}/>
+     </div>
+    )
   }
 }
+
+function Name (props){
+
+  return(
+    <div>
+      <div>test</div>
+      <div>
+        {props.arr.map((name,idx)=>{return <div key={idx}>{name}</div>})}
+      </div>
+    </div>
+  )
+}
+function Card (props){
+  return(
+    <div>
+      <div>
+        {props.data.map((person,idx)=>{return <div><h1>{person.name}</h1></div>})}
+      </div>
+    </div>
+  )
+}
+
 export default App
