@@ -51,3 +51,13 @@ code {
   flex-direction: column;
   width: 30%;
 }
+
+.avatar{
+  border: solid;
+  width: fit-content;
+  padding: 0.5rem;
+  margin: 1rem;
+}
+.avatar-box{
+  display: flex;
+}

@@ -66,6 +66,7 @@ class MapAvatars extends React.Component {
     return(
     <>
       <div>
+        <FilterAvatars mappedData={this.state.mappedData}/>
         <DisplayAvatars mappedData={this.state.mappedData}this/>
       </div>
     </>
@@ -73,14 +74,40 @@ class MapAvatars extends React.Component {
   }
 }
  function DisplayAvatars(props) {
-   function appendAvatar() {
-     props.mappedData.map((person)=> {
-       return <div>asd</div>
-     })
-   }
 
  return(
-   appendAvatar()
+   <div>
+     {props.mappedData.map((person)=> {
+    return <div className='avatar-box'>
+             <div className='avatar' key={person.person.id}>
+               <div>{person.person.first}</div>
+               <div>{person.person.last}</div>
+               <img src={person.person.img.medium}/>
+              </div>
+           </div>
+    })}
+    </div>
  )
+}
+
+function FilterAvatars(props) {
+  function filterAll(value) {
+    props.mappedData.map((person)=>{
+      const stringArr = person.person.first.split("")
+      const valueArr = value.split("")
+      for (let i = 0; i < valueArr.length; i++) {
+        if (stringArr[i] === valueArr[i]) {
+          return <div>{person.person.first}</div>
+        }
+      }
+    })
+
+  }
+  return(
+    <div>
+      <input type='text' onChange={(e)=>filterAll(e.target.value)}></input>
+      <button>Find</button>
+    </div>
+  )
 }
 export default App
