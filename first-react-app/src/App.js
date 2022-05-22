@@ -11,13 +11,13 @@ class App extends React.Component{
   render() {
     return(
       <>
-       <GetJoke/>
+       <Data/>
       </>
     )
   }
 }
 
-class GetJoke extends React.Component{
+class Data extends React.Component{
   constructor() {
     super()
     this.state = {
@@ -40,16 +40,17 @@ class GetJoke extends React.Component{
     return this.setState({allNames: newNames})
   }
   getAllBornBefore1990=()=> {
-    let newAllBornBeforeArr = this.state.myData.map(person=>{
+    let newAllBornBeforeArr = this.state.myData.filter(person=>{
       if(!this.state.allBefore1990.includes(person)){
         for (const key in person) {
           if(key === 'birthday' && person[key].slice(person[key].length - 4) < 1990) {
-            return person
+            // console.log(person)
+            return true
           }
         }
       }
     })
-    console.log(this.state.allBefore1990)
+    console.log(newAllBornBeforeArr)
     return this.setState({allBefore1990: newAllBornBeforeArr})
   }
   componentDidMount(){    
@@ -60,7 +61,7 @@ class GetJoke extends React.Component{
     return(
       <div>
          <Name arr={this.state.allNames}/>
-         <Card data={this.state.allBefore1990}/>
+         <Card before1990={this.state.allBefore1990}/>
      </div>
     )
   }
@@ -77,11 +78,17 @@ function Name (props){
     </div>
   )
 }
+
 function Card (props){
   return(
     <div>
       <div>
-        {props.data.map((person,idx)=>{return <div><h1>{person.name}</h1></div>})}
+        {props.before1990.map((person,idx)=>{return <div>
+          <h1>{person.name}</h1>
+          <p>{person.birthday}</p>
+          <p>{person.favoriteFoods.fish.map(food=>{return <p>{food}</p>})}</p>
+          <p>{person.favoriteFoods.meats.map(food=>{return <p>{food}</p>})}</p>
+        </div>})}
       </div>
     </div>
   )
