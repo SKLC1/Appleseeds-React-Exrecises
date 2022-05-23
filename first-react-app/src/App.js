@@ -20,7 +20,7 @@ class App extends React.Component{
 class FetchAvatars extends React.Component{
   constructor() {
     super()
-    this.state = { avatarArr: [] }
+    this.state = { avatarArr: [], userInput: '' }
   }
   getAvatars= async ()=> {
       const response = await axios.get('https://randomuser.me/api/?results=10')
@@ -78,8 +78,8 @@ class MapAvatars extends React.Component {
  return(
    <div>
      {props.mappedData.map((person)=> {
-    return <div className='avatar-box'>
-             <div className='avatar' key={person.person.id}>
+    return <div className='avatar-box'  key={person.person.id}>
+             <div className='avatar'>
                <div>{person.person.first}</div>
                <div>{person.person.last}</div>
                <img src={person.person.img.medium}/>
@@ -91,18 +91,19 @@ class MapAvatars extends React.Component {
 }
 
 function FilterAvatars(props) {
+  
   function filterAll(value) {
-    props.mappedData.map((person)=>{
+    props.mappedData.filter((person)=>{
       if (person.person.first.toLowerCase().includes(value.toLowerCase())) {
-        console.log(person.person.first)
+       return person
+      } else {
+        return false
       }
     })
-
   }
   return(
     <div>
       <input type='text' onChange={(e)=>filterAll(e.target.value)}></input>
-      <button>Find</button>
     </div>
   )
 }
