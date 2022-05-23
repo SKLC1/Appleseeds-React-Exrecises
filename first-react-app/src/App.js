@@ -93,12 +93,8 @@ class MapAvatars extends React.Component {
 function FilterAvatars(props) {
   function filterAll(value) {
     props.mappedData.map((person)=>{
-      const stringArr = person.person.first.split("")
-      const valueArr = value.split("")
-      for (let i = 0; i < valueArr.length; i++) {
-        if (stringArr[i] === valueArr[i]) {
-          return <div>{person.person.first}</div>
-        }
+      if (person.person.first.toLowerCase().includes(value.toLowerCase())) {
+        console.log(person.person.first)
       }
     })
 
