@@ -1,7 +1,7 @@
 import axios from "axios"
 
 
-const KEY = 'AIzaSyCdW6Xf9faS6_RkjJwnNchCp6WiCn8Vndk'
+const KEY = 'deleted api key'
 axios.create({
 baseURL: 'htpps://www.googleapis.com/youtube/v3',
 params: {
