@@ -8,7 +8,7 @@ class Ecommerce extends React.Component{
     return(
       <div>
         <BrowserRouter>
-            <Route exact path="/" component={Homepage}></Route>
+            <Route path="/" component={Homepage}></Route>
             <Route exact path="/products" component={Products}></Route>
             <Route path="/products/:id" component={Item}></Route>
         </BrowserRouter>
@@ -76,6 +76,9 @@ class Item extends React.Component {
       }
     })
   }
+  goBack =()=> {
+    this.props.history.goBack()
+  }
   componentDidMount() {
     this.getProduct()
     console.log(this.state)
@@ -91,6 +94,7 @@ class Item extends React.Component {
         <div>{this.state.isProd?this.state.prod.title:'loading'}</div>
         <div>{this.state.isProd?this.state.prod.price:null}</div>
         <img src={`${this.state.isProd?this.state.prod.imageUrl:null}`} />
+        <button  type="button" onClick={this.goBack}>Go Back</button>
       </div>
     );
   }
