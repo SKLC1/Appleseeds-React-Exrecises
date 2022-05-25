@@ -15,9 +15,9 @@ class Exrecise171 extends Component {
 class ContactList extends Component {
   constructor(){
     super()
-    this.state = { contactsArr: [] }
+    this.state = { contactsArr: [], newUserName: '', newUserPhone: '', newUserImg: '' }
   }
-
+  
   async componentDidMount(){
     try{
       const {data} = await axios.get('https://628e804ba339dfef87af171e.mockapi.io/Contacts')
@@ -27,15 +27,38 @@ class ContactList extends Component {
       console.log(e);
     }
   }
-
+  
   insertContacts=()=>{
     return this.state.contactsArr.map((contact)=>{
-      return <Contact details={contact}/>
+      return <Contact details={contact} key={contact.id}/>
     })
+  }
+  handleInputChange=({ target })=>{
+    this.setState({ [target.id]: target.value })
+  }
+  handleCreate = async() =>{
+    const newContact = {name: this.state.newUserName, phone: this.state.newUserPhone, image: this.state.newUserImg}
+    console.log(newContact);
+    try{
+      const postedData = await axios.post('https://628e804ba339dfef87af171e.mockapi.io/Contacts', newContact)
+      this.setState((prev)=>{
+        return{ contactsArr: [...prev.contactsArr, postedData.data],
+        newUserName: '',
+        newUserPhone: '',
+        newUserImg: '',
+       }
+      })
+    } catch(e) {
+      console.log(e.message);
+    }
   }
   render() { 
     return (
-      <div>
+      <div className="wrapper">
+        <input id="newUserName" onChange={this.handleInputChange} value={this.state.userName} placeholder="name"></input>
+        <input id="newUserPhone" onChange={this.handleInputChange} value={this.state.userPhone} placeholder="phone"></input>
+        <input id="newUserImg" onChange={this.handleInputChange} value={this.state.userImage} placeholder="img utl"></input>
+        <button onClick={this.handleCreate}>Add</button>
          {this.insertContacts()}
       </div>
     );
