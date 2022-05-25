@@ -32,6 +32,9 @@ class Header extends React.Component {
     return(
       <div>
          <div> WELCOME TO OUR PAGE</div>
+        <Link to='/'>
+          <h1>Home</h1>
+        </Link>
         <Link to='/products'>
           <h1>Products</h1>
         </Link>
