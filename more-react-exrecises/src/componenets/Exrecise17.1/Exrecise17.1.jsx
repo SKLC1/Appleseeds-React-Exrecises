@@ -30,7 +30,8 @@ class ContactList extends Component {
   
   insertContacts=()=>{
     return this.state.contactsArr.map((contact)=>{
-      return <Contact details={contact} key={contact.id} handleDelete={this.handleDelete}/>
+      return <Contact details={contact} key={contact.id}
+      handleDelete={this.handleDelete} handleUpdate={this.handleUpdate}/>
     })
   }
   handleInputChange=({ target })=>{
@@ -64,6 +65,22 @@ class ContactList extends Component {
     }
     
   }
+  handleUpdate= async(id, newName)=>{
+    const updateContact = this.state.contactsArr.find(
+      (contact) => contact.id === id
+    );
+    const updated = {...updateContact, name: newName }
+    console.log(updated)
+    const { data } = await axios.put(`https://628e804ba339dfef87af171e.mockapi.io/Contacts/${id}`, updated)
+    this.setState((prev)=>{
+      return prev.contactsArr.map((contact)=>{
+        if (contact.id === id) {
+          return data;
+        }
+        return contact;
+      })
+    })
+  }
   render() { 
     return (
       <div className="wrapper">
@@ -77,6 +94,10 @@ class ContactList extends Component {
   }
 }
 class Contact extends Component {
+  state = { value: '' }
+  handleOnChange=({target})=>{
+    this.setState({ value: target.value })
+  }
   render() { 
     return (
       <div>
@@ -84,7 +105,8 @@ class Contact extends Component {
         <div>{this.props.details.phone}</div>
         <img src={this.props.details.image}></img>
         <button onClick={()=>this.props.handleDelete(this.props.details.id)}>Delete</button>
-        <button>Edit</button>
+        <button onClick={()=>this.props.handleUpdate(this.props.details.id,this.state.value)}>Edit</button>
+        <input onChange={this.handleOnChange} value={this.state.value}></input>
       </div>
     );
   }
