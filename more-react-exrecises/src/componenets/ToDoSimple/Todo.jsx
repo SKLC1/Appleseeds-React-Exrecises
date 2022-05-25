@@ -27,7 +27,9 @@ class List extends Component {
   }
   insertList(){
     return this.state.toDoList.map((listItem)=>{
-      return <Task itemProp={listItem}  key={listItem.id}/>
+      return <Task itemProp={listItem}  key={listItem.id}
+      handleDelete={this.handleDelete}
+      handleUpdate={this.handleUpdate}/>
     })
   }
   setAddedValue(target){
@@ -41,6 +43,25 @@ class List extends Component {
     this.setState((prevState) => {
       return { toDoList: [...prevState.toDoList, newItem], toBeAdded: ''}
     })
+  }
+  handleDelete=(id)=>{
+    console.log(id);
+    this.setState((prevState) => {  
+      const toDoListAfterDelete = prevState.toDoList.filter((obj) => 
+        obj.id !== id
+      );
+      return { toDoList: toDoListAfterDelete };
+    });
+  }
+  handleUpdate = (id, newTitle) => {
+    const newArrOfObj = this.state.toDoList.map((obj) => {
+      if (obj.id === id) {
+        return { ...obj, do: newTitle };
+      }
+      return obj;
+    });
+    console.log(newArrOfObj);
+    this.setState({ toDoList: newArrOfObj });
   }
   render() {
     return(
@@ -57,23 +78,25 @@ class List extends Component {
     )
   }
 }
-// ---------------
+// --------------- 
 
 class Task extends Component {
   constructor(){
     super()
-    this.state = {item: this.props}
+    this.state = {title:''}
   }
-
+  handleUpdateChange(value){
+    this.setState({ title: value },()=>{console.log(value);})
+  }
   render() {
     return(
       <div className="list-item">
          {this.props.itemProp.do}
         <div>
-          <button>Delete
+          <button onClick={()=>this.props.handleDelete(this.props.itemProp.id)}>Delete
           </button>
-          <button>Edit</button>
-           <input type='text' placeholder="Edit"></input>
+          <button onClick={()=>this.props.handleUpdate(this.props.itemProp.id,this.state.title)}>Edit</button>
+           <input onChange={(e)=>this.handleUpdateChange(e.target.value)} type='text' placeholder="Edit"></input>
          </div>
        </div>
     )
