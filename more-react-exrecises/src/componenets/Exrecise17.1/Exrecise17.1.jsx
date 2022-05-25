@@ -53,7 +53,15 @@ class ContactList extends Component {
     }
   }
   handleDelete = async(id)=>{
-    const deletedContact = await axios.delete(`https://628e804ba339dfef87af171e.mockapi.io/Contacts/${id}`)
+    try{
+      const deletedContact = await axios.delete(`https://628e804ba339dfef87af171e.mockapi.io/Contacts/${id}`)
+      this.setState(prev=>{
+        const newContactArr = prev.contactsArr.filter((c)=>(c.id !== id))
+         return {contactsArr: newContactArr}
+        })
+    } catch (e) {
+      console.log(e);
+    }
     
   }
   render() { 
