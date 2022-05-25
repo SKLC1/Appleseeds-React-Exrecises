@@ -30,7 +30,7 @@ class ContactList extends Component {
   
   insertContacts=()=>{
     return this.state.contactsArr.map((contact)=>{
-      return <Contact details={contact} key={contact.id}/>
+      return <Contact details={contact} key={contact.id} handleDelete={this.handleDelete}/>
     })
   }
   handleInputChange=({ target })=>{
@@ -52,6 +52,10 @@ class ContactList extends Component {
       console.log(e.message);
     }
   }
+  handleDelete = async(id)=>{
+    const deletedContact = await axios.delete(`https://628e804ba339dfef87af171e.mockapi.io/Contacts/${id}`)
+    
+  }
   render() { 
     return (
       <div className="wrapper">
@@ -71,6 +75,8 @@ class Contact extends Component {
         <div>{this.props.details.name}</div>
         <div>{this.props.details.phone}</div>
         <img src={this.props.details.image}></img>
+        <button onClick={()=>this.props.handleDelete(this.props.details.id)}>Delete</button>
+        <button>Edit</button>
       </div>
     );
   }
