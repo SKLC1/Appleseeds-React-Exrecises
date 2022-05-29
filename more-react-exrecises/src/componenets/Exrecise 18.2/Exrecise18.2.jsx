@@ -27,17 +27,10 @@ function Exrecise182() {
     }
   }
   function toggleTask(item) {
-    if (item.completed) {
-      setData((prev)=>{ 
-        console.log(prev);
-        return [ ...prev, item.completed = false]
-      })
-    } else {
-      setData((prev)=>{ 
-        console.log(prev);
-        return [ ...prev, item.completed = true]
-      })
-    }
+    const idx = data.indexOf(item);
+    const copyArr = [...data ]
+    copyArr[idx].completed = (!data[idx].completed)
+    setData(copyArr) // prev?
   }
   return ( 
     <>
