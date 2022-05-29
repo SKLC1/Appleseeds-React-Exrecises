@@ -6,6 +6,7 @@ import CodeAlong from './componenets/CodeAlong/CodeAlong';
 import Ecommerce from './componenets/React Router/main';
 import ToDo from './componenets/ToDoSimple/Todo';
 import Exrecise171 from './componenets/Exrecise17.1/Exrecise17.1';
+import Exrecise181 from './componenets/Exrecise 18.1/Exrecise18.1';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
      {/* <CodeAlong/> */}
      {/* <Ecommerce/> */}
      {/* <ToDo/> */}
-     <Exrecise171/>
+     {/* <Exrecise171/> */}
+     <Exrecise181/>
    </div> 
   )
 }

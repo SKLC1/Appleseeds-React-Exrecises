@@ -75,7 +75,7 @@ class ContactList extends Component {
     this.setState((prev)=>{
       return prev.contactsArr.map((contact)=>{
         if (contact.id === id) {
-          return data;
+             return data;
         }
         return contact;
       })
