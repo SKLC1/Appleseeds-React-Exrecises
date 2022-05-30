@@ -27,7 +27,7 @@ function Exrecise192() {
 
    function filterSearch() {
     console.log(search.input)
-    const newRes = countries.res.filter(country=> country.name.common.includes(search.input));
+    const newRes = countries.res.filter(country=> country.name.common.includes(search.input))
     setCountries({res: newRes})
   }
   return ( 
