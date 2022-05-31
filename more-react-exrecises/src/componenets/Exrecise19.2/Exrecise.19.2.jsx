@@ -5,6 +5,7 @@ import {useState, useEffect } from 'react'
 function Exrecise192() {
 
   const [countries,setCountries] = useState({res: [] })
+  const [filteredCountries,setFilteredCountries] = useState({res: [] })
   const [search,setSearch] = useState({input: ''})
   
   useEffect(()=>{getSearch()},[])
@@ -14,12 +15,13 @@ function Exrecise192() {
       const {data} = await axios.get(`https://restcountries.com/v3.1/all`)
       console.log(data)
       setCountries({res: data})
+      setFilteredCountries({res: data})
     } catch (e){
       console.log(e);
     }
   }
   function insertCountries(){
-    return countries.res.map((country,idx)=>{
+    return filteredCountries.res.map((country,idx)=>{
       return <div key={idx}>{country.name.common}</div>
     })
   }
@@ -28,7 +30,8 @@ function Exrecise192() {
    function filterSearch() {
     console.log(search.input)
     const newRes = countries.res.filter(country=> country.name.common.includes(search.input))
-    setCountries({res: newRes})
+    setFilteredCountries({res: newRes})
+    console.log(newRes)
   }
   return ( 
     <div>
