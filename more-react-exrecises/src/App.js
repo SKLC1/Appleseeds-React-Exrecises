@@ -17,6 +17,7 @@ import Exrecise194 from './componenets/Exrecise19.4/Exrecise19.4';
 import Exrecise201 from './componenets/Exrecise20.1/Exrecise.20.1';
 import Exrecise211 from './componenets/Exrecise21.1/Exrecise21.1';
 import Exrecise212 from './componenets/Exrecise21.2/Exrecise21.2';
+import Exrecise213 from './componenets/Exrecise21.3/Exrecise21.3';
 
 function App() {
   return (
@@ -37,7 +38,8 @@ function App() {
      {/* <Exrecise194/> */}
      {/* <Exrecise201/> */}
      {/* <Exrecise211/> */}
-     <Exrecise212/>
+     {/* <Exrecise212/> */}
+     <Exrecise213/>
    </div> 
   )
 }
